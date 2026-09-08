@@ -1,0 +1,42 @@
+{
+  "name": "@tiinex/app",
+  "version": "0.1.0",
+  "description": "Shared Tiinex application layer built on @tiinex/core — Viewer data plane, Verse hosting and reusable React application infrastructure.",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.js",
+    "./react": "./src/react.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src",
+    "LICENSE",
+    "NOTICE",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "pack:check": "npm pack --dry-run"
+  },
+  "dependencies": {
+    "@tiinex/core": "file:../../turn1_core_0.1.0.tgz"
+  },
+  "peerDependencies": {
+    "react": ">=18.2 <20",
+    "react-dom": ">=18.2 <20"
+  },
+  "peerDependenciesMeta": {
+    "react-dom": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=22.14"
+  },
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}
