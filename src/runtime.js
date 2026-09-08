@@ -37,10 +37,16 @@ export function createTiinexApplicationRuntime(options = {}) {
       const matches = store.getSnapshot().records.filter(r => r.workspaceId === query.owner?.workspaceId && r.path === query.owner?.artifactPath);
       const id = query.owner?.schemaId || (matches.length === 1 ? matches[0].schemaId : '');
       const ancestry = projectSchemaAncestry(id, schemas);
+      if (['ambiguous','cycle'].includes(ancestry.status)) return Object.freeze({status:'blocked',resources:Object.freeze([]),findings:Object.freeze([{code:'companion.schema-ancestry.'+ancestry.status}])});
       return resolveCompanionResources({ providers: api.getCompanionProviders(), query: { ...query, schemaLineage: query.schemaLineage || ancestry.lineage } });
     },
     getPlaythingsStoryRecords() { return toPlaythingsStoryRecords(store.getSnapshot()); },
-    readCompanion: access.read,
+    async readCompanion(resource, options) {
+      const entries=api.getCompanionProviders().flatMap(p=>p.resources || []);
+      const matches=entries.filter(r=>r.providerId===resource?.providerId && r.id===resource?.id && r.path===resource?.path && r.sha256===resource?.sha256);
+      if(matches.length!==1) throw new Error('Companion selection is stale, ambiguous or unregistered.');
+      return access.read(matches[0],options);
+    },
     getSnapshot() { return store.getSnapshot(); }
   };
   if (Array.isArray(options.workspaces)) api.setWorkspaces(options.workspaces);

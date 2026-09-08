@@ -1,4 +1,5 @@
 import React from 'react';
+import packageMetadata from '../package.json' with {type:'json'};
 import { createRoot } from 'react-dom/client';
 
 import './ui/icon.paths.js';
@@ -26,7 +27,7 @@ export { TiinexApplication };
 export function mountTiinexApp(element, config = {}) {
   if (!element) throw new TypeError('A mount element is required.');
   const root = createRoot(element);
-  const identity = Object.freeze({ ...tiinexBuildIdentity(), applicationPackage: '@tiinex/app', applicationVersion: '0.1.0', deploymentId: config.deploymentId || 'custom' });
+  const identity = Object.freeze({ ...tiinexBuildIdentity(), applicationPackage: '@tiinex/app', applicationVersion: packageMetadata.version, deploymentId: config.deploymentId || 'custom' });
   element.ownerDocument.documentElement.dataset.tiinexRuntime = TIINEX_RUNTIME_ID;
   root.render(React.createElement(TiinexApplication, { config }));
   return Object.freeze({ identity, unmount: () => root.unmount() });

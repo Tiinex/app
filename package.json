@@ -1,6 +1,6 @@
 {
   "name": "@tiinex/app",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Shared Tiinex application layer built on @tiinex/core \u2014 Viewer data plane, Verse hosting and reusable React application infrastructure.",
   "type": "module",
   "sideEffects": true,
@@ -23,10 +23,14 @@
     "test": "node --test test/*.test.mjs",
     "pack:check": "npm pack --dry-run",
     "test:build": "vite build --config test/browser/vite.config.mjs",
-    "validate": "npm test && npm run test:build"
+    "validate": "npm test && npm run test:build",
+    "release:preview": "node tools/release.mjs preview",
+    "publish:bootstrap": "node tools/release.mjs bootstrap",
+    "release:prepare": "node tools/release.mjs prepare",
+    "release:publish": "node tools/release.mjs publish"
   },
   "dependencies": {
-    "@tiinex/core": "0.1.0"
+    "@tiinex/core": "0.1.1"
   },
   "peerDependencies": {
     "react": "19.2.7",
@@ -42,7 +46,7 @@
   "license": "Apache-2.0",
   "publishConfig": {
     "access": "public",
-    "provenance": true
+    "registry": "https://registry.npmjs.org/"
   },
   "repository": {
     "type": "git",

@@ -5,8 +5,12 @@ dist/
 .env
 .env.*
 !.env.example
-*.zip
 
 .site-publish/
 .release/
 .tiinex/
+
+.release/
+node_modules/
+*.tgz
+*.zip

@@ -1,34 +1,65 @@
-# Core/App consumer contract — Turn 1 checkpoint
+# App ↔ Playthings — landed source contract, 2026-09-08
 
-Status: implemented headless boundary; browser qualification still open.
+Exact candidate composition: Core 0.1.1, App 0.1.1, Playthings 0.1.0.
+The prior source-independent headless engine remains intact. Its 139 runtime tests
+are preserved. A real React entrypoint and a small history/portrait view now bridge it
+into App. This is an integration surface, NOT completion of the full world renderer.
 
-## Imports
+## Public entrypoints
 
-- `@tiinex/core`: parseArtifactMarkdown, projectApplicationData, projectSchemaAncestry, defineCompanionProvider, companionProviderFromWorkspace, resolveCompanionResources, toPlaythingsStoryRecords.
-- `@tiinex/core/node`: the shared portable operation API and the browser-safe surface.
-- `@tiinex/app`: createTiinexApplicationRuntime, createApplicationDataStore, defineVerse, createVerseRegistry, loadVerse.
-- `@tiinex/app/react`: TiinexApplicationRuntimeProvider, useTiinexApplicationData, useVerseHostContext, VerseHost.
-- `@tiinex/app/viewer`: mountTiinexApp(element, config), TiinexApplication.
-- `@tiinex/app/verse`: external Verse registration and lazy loading.
+- `@tiinex/playthings/app`: createPlaythingsVerse, createAppVerseModel, sampleAppVerse.
+- `@tiinex/playthings/react`: default/PlaythingsVerse React function component.
+- Existing time/story/world/observation/companions/scene/node exports remain unchanged.
+- `@tiinex/app/viewer`: mountTiinexApp(element, config).
+- `@tiinex/app`: runtime, snapshots, explicit Verse and companion contracts.
 
-## Data and truth boundary
+Site imports createPlaythingsVerse from the data-only app subpath. Only selecting
+Playthings imports React/presentation code. React is a host peer, not a private
+copy. No Site source or private Core/App module is imported by Playthings.
 
-App keeps an immutable snapshot outside the mounted Verse. A Viewer state update projects its loaded Workspaces into this store. Snapshots expose artifact ids, schema declarations, Parent references, timestamps, authors, resolved endpoint addresses, relation declarations and Workspace source metadata. The projection is not an independent schema/integrity/authority validation. Unknown input remains unknown; no work occurrence or Handoff acceptance is inferred.
+## Adapter inputs
 
-The supplied Playthings headless API accepts neutral story records. The integration fixture exercises that real API against the installed npm packages. It does not certify a renderer, fullscreen behavior or complete participant extraction for every schema.
+The current App VerseHost passes `applicationData`, `getPlaythingsStoryRecords`,
+`resolveCompanions`, `host` and `verse`. Snapshot schema must be
+`tiinex.core.application-data.v1`. createAppVerseModel validates the snapshot,
+requires matching IDs, enforces a record budget, then calls the existing
+createStoryPlan. It does not re-parse artifacts or invent missing Parents/actors.
 
-## Verse export contract
+The view supports empty Workspace guidance, bounded historical-position selection,
+frontier/actor depiction, portrait resources, exit and fullscreen request. Historical
+presentation uses source-declared times; missing timestamps are omitted with an
+explicit count. Story findings remain available without claiming semantic authority.
+Snapshots remain owned by App. Viewer stays mounted, hidden while external Verse is
+shown, so returning does not recreate source state. No mutation/automation is added.
 
-The registered `load()` returns a module with a default function component, `Verse`, or `PlaythingsVerse`. Props are `applicationData`, `getPlaythingsStoryRecords`, `resolveCompanions`, `host`, and `verse`. The host exposes explicit `exitVerse`, `switchVerse`, `setImmersive`, `requestFullscreen` and `readCompanion` capabilities. Browser fullscreen can fail or require a user gesture; it is not promised by registration. A visible exit remains available.
+## Companion reads
 
-The existing Viewer intake controller stays mounted but hidden while an external Verse is active, preserving source state. It is not duplicated into another repository. This boundary is deliberate; browser regression qualification is pending.
+Portrait lookup requests playthings/portrait for the exact loaded artifact owner.
+App composes workspace-local and explicitly registered package/deployment providers.
+Resolution remains in Core; Playthings does not implement a competing resolver.
+Ambiguous or missing resources are not replaced with invented source facts. Successful
+reads are inspected with Playthings' existing bounded PNG/CRC inspector, turned into
+an object URL and revoked on change/unmount. Aborted/stale effects cannot repaint the
+new selection. Metadata presence alone is not loaded byte availability.
 
-## Companion policy
+No default PNG resources were supplied in the current Playthings source; this pass
+adds no fabricated art. Schema-default and override registries remain explicit
+host/provider configuration using the existing mirrored src/schemas convention.
 
-Artifact-exact resources outrank exact schema, schema ancestors, then generic root resources. Within equal specificity: Workspace, Site, Verse, App, Core. Multi-resource collections append distinct keys; a more specific or higher-layer resource replaces only the same key. Equal-ranked contradictory single resources or collection keys fail closed. Registration order never resolves a conflict.
+## What is verified vs pending
 
-Providers are data-only explicit registrations. Relative `src/schemas/...` paths may be mirrored across packages without copying schema authority. Loaded Workspace assets can sit beside any artifact, including `.topics/.relations/...`. Workspace paths do not create Relation meaning.
+Local: installed npm tarballs; headless App/Core → actual story engine; exact Parent
+and empty history cases; `.topics/.relations` artifact portrait using a real PNG;
+updates/unloaded resources; package exports and no source symlinks; master-release
+policy and real Git/npm staging tests with simulated registry responses.
 
-Actual bytes use explicitly registered `resourceReaders`; loaded Workspace PNG data URLs also work. Read results are size-bounded and checked against declared SHA-256 when present. Missing bytes are not fabricated or fetched from the network. The PNG examples in headless byte tests are deliberately synthetic, not graphics-decoding tests.
+Pending external execution: pinned React/Vite bundle and rendered browser tests,
+real GitHub OIDC/account configuration and npm publication. Network DNS is absent in
+the Anchor container. The Site workflow and Core source-set qualification tool run
+those real tests when dependencies can be obtained; no fake React/Vite is substituted.
 
-Automatic package-manifest discovery, exhaustive participant relation projection and namespace-specific inheritance policies are not silently claimed implemented by this checkpoint. A host can already register explicit providers and schema ancestry declarations through the exposed APIs.
+Next Playthings Anchor should start from the carried successor Handoff, run the
+source-set qualification, then develop the actual scene/world renderer according to
+the existing Playthings plan. The minimal history view is scaffolding, not a redesign
+of that plan. No new world schemas, authority rules, or per-artifact Playthings
+metadata were introduced. Refactor Anchor retains Turn 2; VS Code stays later.

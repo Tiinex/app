@@ -14,7 +14,7 @@ export function createApplicationDataStore(initialSnapshot = null) {
       const next = deepFreeze(nextSnapshot);
       if (next === snapshot) return snapshot;
       snapshot = next;
-      for (const listener of [...listeners]) listener();
+      for (const listener of [...listeners]) { try { listener(); } catch { /* A faulty observer cannot starve other read-only observers. */ } }
       return snapshot;
     }
   });
