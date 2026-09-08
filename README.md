@@ -13,3 +13,9 @@ Tiinex semantics and does not depend on Site internals.
 A Site or browser host supplies Workspaces and deployment-specific providers. Verses
 receive a read-only application-data snapshot and a bounded host interface; they do not
 reach into Site state or invent artifact/schema semantics.
+
+## This source checkpoint
+
+Not yet release-qualified. The public packages are tested headlessly from local npm archives. A full dependency-equipped React/Vite bundle and rendered external-Verse acceptance remain pending. Publishing is disabled in `.github/release-policy.json`.
+
+`@tiinex/app/viewer` exports `mountTiinexApp(element, config)` and `TiinexApplication`. The Viewer source now lives here at the original relative `src/...` paths; Site owns only composition. `@tiinex/app/verse` exports the external Verse registry. Existing product Verse configuration and external package registration are separate contracts. React, ReactDOM and FontAwesome are optional peers for headless consumers but required by the Viewer entrypoint; Site supplies their exact versions.

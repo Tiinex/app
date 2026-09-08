@@ -5,3 +5,8 @@ dist/
 .env
 .env.*
 !.env.example
+*.zip
+
+.site-publish/
+.release/
+.tiinex/

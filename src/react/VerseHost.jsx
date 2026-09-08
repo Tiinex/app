@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { loadVerse } from '../verses/registry.js';
+import { loadVerse } from '../verses/hostRegistry.js';
 import { useVerseHostContext } from './applicationDataContext.jsx';
 
 export function VerseHost({ verseId, registry, host = {}, fallback = null, onLoadState = null }) {
@@ -16,7 +16,7 @@ export function VerseHost({ verseId, registry, host = {}, fallback = null, onLoa
     return () => { active = false; };
   }, [registry, verseId, onLoadState]);
 
-  if (state.status !== 'ready') return typeof fallback === 'function' ? fallback(state) : fallback;
+  if (state.id !== verseId || state.status !== 'ready') return typeof fallback === 'function' ? fallback(state) : fallback;
   const Component = state.module?.default || state.module?.Verse || state.module?.PlaythingsVerse;
   if (typeof Component !== 'function') return typeof fallback === 'function' ? fallback({ ...state, status: 'invalid-module' }) : fallback;
   return React.createElement(Component, Object.freeze({

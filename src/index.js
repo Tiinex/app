@@ -1,5 +1,5 @@
 export { createApplicationDataStore } from './data/applicationDataStore.js';
-export { defineVerse, createVerseRegistry, loadVerse } from './verses/registry.js';
+export { defineVerse, createVerseRegistry, loadVerse } from './verses/hostRegistry.js';
 export { createTiinexApplicationRuntime } from './runtime.js';
 export {
   defineCompanionProvider,

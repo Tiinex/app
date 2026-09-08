@@ -1,35 +1,40 @@
 {
   "name": "@tiinex/app",
   "version": "0.1.0",
-  "description": "Shared Tiinex application layer built on @tiinex/core — Viewer data plane, Verse hosting and reusable React application infrastructure.",
+  "description": "Shared Tiinex application layer built on @tiinex/core \u2014 Viewer data plane, Verse hosting and reusable React application infrastructure.",
   "type": "module",
-  "sideEffects": false,
+  "sideEffects": true,
   "exports": {
     ".": "./src/index.js",
     "./react": "./src/react.js",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./viewer": "./src/viewer.js",
+    "./styles": "./src/styles/app.css",
+    "./verse": "./src/verses/hostRegistry.js"
   },
   "files": [
     "src",
+    "README.md",
     "LICENSE",
     "NOTICE",
-    "README.md"
+    "docs/CONSUMER-CONTRACT.md"
   ],
   "scripts": {
     "test": "node --test test/*.test.mjs",
-    "pack:check": "npm pack --dry-run"
+    "pack:check": "npm pack --dry-run",
+    "test:build": "vite build --config test/browser/vite.config.mjs",
+    "validate": "npm test && npm run test:build"
   },
   "dependencies": {
-    "@tiinex/core": "file:../../turn1_core_0.1.0.tgz"
+    "@tiinex/core": "0.1.0"
   },
   "peerDependencies": {
-    "react": ">=18.2 <20",
-    "react-dom": ">=18.2 <20"
-  },
-  "peerDependenciesMeta": {
-    "react-dom": {
-      "optional": true
-    }
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "@fortawesome/fontawesome-svg-core": "7.3.1",
+    "@fortawesome/free-regular-svg-icons": "7.3.1",
+    "@fortawesome/free-solid-svg-icons": "7.3.1",
+    "@fortawesome/react-fontawesome": "3.4.0"
   },
   "engines": {
     "node": ">=22.14"
@@ -38,5 +43,40 @@
   "publishConfig": {
     "access": "public",
     "provenance": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tiinex/app.git"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    },
+    "@fortawesome/fontawesome-svg-core": {
+      "optional": true
+    },
+    "@fortawesome/free-regular-svg-icons": {
+      "optional": true
+    },
+    "@fortawesome/free-solid-svg-icons": {
+      "optional": true
+    },
+    "@fortawesome/react-fontawesome": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-svg-core": "7.3.1",
+    "@fortawesome/free-regular-svg-icons": "7.3.1",
+    "@fortawesome/free-solid-svg-icons": "7.3.1",
+    "@fortawesome/react-fontawesome": "3.4.0",
+    "@vitejs/plugin-react": "6.0.3",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "typescript": "7.0.2",
+    "vite": "8.1.5"
   }
 }

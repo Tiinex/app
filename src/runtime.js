@@ -1,9 +1,14 @@
+import { schemaRegistry } from '@tiinex/core/schemas/registry.js';
+import { projectSchemaAncestry } from '@tiinex/core';
+import { createCompanionAccess } from './data/companionAccess.js';
 import { companionProviderFromWorkspace, projectApplicationData, resolveCompanionResources, toPlaythingsStoryRecords } from '@tiinex/core';
 import { createApplicationDataStore } from './data/applicationDataStore.js';
-import { createVerseRegistry } from './verses/registry.js';
+import { createVerseRegistry } from './verses/hostRegistry.js';
 
 export function createTiinexApplicationRuntime(options = {}) {
   const store = createApplicationDataStore();
+  const access = createCompanionAccess(options);
+  const schemas = Object.freeze((options.schemaDeclarations || schemaRegistry.modules.map(m => ({id:m.id,parentSchemaId:m.parentSchemaId,checksum:m.binding?.checksum?.value || '',basis:'installed-schema-module-declaration'}))).map(s => Object.freeze({...s})));
   const verses = options.verses?.get ? options.verses : createVerseRegistry(options.verses || []);
   let configuredProviders = Object.freeze([...(options.companionProviders || [])]);
   let workspaceProviders = Object.freeze([]);
@@ -13,7 +18,8 @@ export function createTiinexApplicationRuntime(options = {}) {
     data: store,
     verses,
     setWorkspaces(workspaces = []) {
-      const projected = projectApplicationData({ workspaces });
+      access.setWorkspaces(workspaces);
+      const projected = Object.freeze({ ...projectApplicationData({ workspaces }), schemas });
       const derived = workspaces.map((workspace) => companionProviderFromWorkspace(workspace));
       workspaceProviders = Object.freeze(derived.map((item) => item.provider));
       workspaceProviderFindings = Object.freeze(derived.flatMap((item) => item.findings || []));
@@ -26,8 +32,15 @@ export function createTiinexApplicationRuntime(options = {}) {
     },
     getCompanionProviders() { return Object.freeze([...workspaceProviders, ...configuredProviders]); },
     getCompanionProviderFindings() { return workspaceProviderFindings; },
-    resolveCompanions(query) { return resolveCompanionResources({ providers: api.getCompanionProviders(), query }); },
+    schemaAncestry: (schemaId) => projectSchemaAncestry(schemaId, schemas),
+    resolveCompanions(query) {
+      const matches = store.getSnapshot().records.filter(r => r.workspaceId === query.owner?.workspaceId && r.path === query.owner?.artifactPath);
+      const id = query.owner?.schemaId || (matches.length === 1 ? matches[0].schemaId : '');
+      const ancestry = projectSchemaAncestry(id, schemas);
+      return resolveCompanionResources({ providers: api.getCompanionProviders(), query: { ...query, schemaLineage: query.schemaLineage || ancestry.lineage } });
+    },
     getPlaythingsStoryRecords() { return toPlaythingsStoryRecords(store.getSnapshot()); },
+    readCompanion: access.read,
     getSnapshot() { return store.getSnapshot(); }
   };
   if (Array.isArray(options.workspaces)) api.setWorkspaces(options.workspaces);
