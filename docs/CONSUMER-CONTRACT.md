@@ -7,8 +7,8 @@ into App. This is an integration surface, NOT completion of the full world rende
 
 ## Public entrypoints
 
-- `@tiinex/playthings/app`: createPlaythingsVerse, createAppVerseModel, sampleAppVerse.
-- `@tiinex/playthings/react`: default/PlaythingsVerse React function component.
+- `@tiinex/verse-playthings/app`: createPlaythingsVerse, createAppVerseModel, sampleAppVerse.
+- `@tiinex/verse-playthings/react`: default/PlaythingsVerse React function component.
 - Existing time/story/world/observation/companions/scene/node exports remain unchanged.
 - `@tiinex/app/viewer`: mountTiinexApp(element, config).
 - `@tiinex/app`: runtime, snapshots, explicit Verse and companion contracts.
