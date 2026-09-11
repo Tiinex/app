@@ -225,8 +225,8 @@ assert.equal(result(updateComment, { sourceTarget: { inputTarget: comment1, targ
 
 // Planning/result remain side-effect free and host-neutral.
 assert.equal(workspace.records[0].source.adapterId, 'local');
-const contractSource = fs.readFileSync(new URL('./publication.contract.js', import.meta.url), 'utf8');
-const targetSource = fs.readFileSync(new URL('./publication.targetContract.js', import.meta.url), 'utf8');
+const contractSource = fs.readFileSync(new URL(import.meta.resolve('@tiinex/core/publication/publication.contract.js')), 'utf8');
+const targetSource = fs.readFileSync(new URL(import.meta.resolve('@tiinex/core/publication/publication.targetContract.js')), 'utf8');
 assert.doesNotMatch(contractSource + targetSource, /\bfetch\s*\(/);
 assert.doesNotMatch(contractSource + targetSource, /\b(token|oauth|authorization)\b/i);
 assert.doesNotMatch(contractSource + targetSource, /TiinexApp|react/i);

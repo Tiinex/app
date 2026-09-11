@@ -80,7 +80,6 @@ export const FOUNDATION_TEST_GROUPS = Object.freeze({
 ]),
   "tooling/detail": Object.freeze([
   "src/tooling/portable/handoff/carrierLineage.fixedWidth.case.mjs",
-  "src/tooling/portable/bootstrap/bootstrap.case.mjs",
   "src/tooling/portable/adapters/cli/cli.summaryProjection.case.mjs",
   "tools/validate-static-regression-aware.case.mjs",
   "tools/measure-tooling-workset.case.mjs",

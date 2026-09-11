@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { existsSync, readdirSync } from 'node:fs';
+import { readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { schemaRegistry } from '@tiinex/core/schemas/registry.js';
@@ -22,9 +22,9 @@ function walk(dir) {
 
 const files = walk(schemaRoot);
 for (const module of schemaRegistry.modules) {
-  assert(files.some((file) => file.endsWith(`/${module.id}.schema.md`) || file === `src/schemas/${module.id}.schema.md`), `${module.id} must use versioned schema snapshot naming`);
-  assert(files.some((file) => file.endsWith(`/${module.id}.schema.json`) || file === `src/schemas/${module.id}.schema.json`), `${module.id} must use versioned binding naming`);
-  assert(files.some((file) => file.endsWith(`/${module.id}.schema.js`) || file === `src/schemas/${module.id}.schema.js`), `${module.id} must use versioned module naming`);
+  assert(files.some((file) => file.endsWith(`/${module.id}.schema.md`) || file === `src/schemas/${module.id}.schema.md`), `${module.id} must retain a versioned readable schema snapshot in App`);
+  assert.equal(module.binding?.module, `./${module.id}.schema.js`, `${module.id} executable companion module naming is owned by the Core registry`);
+  assert.equal(module.binding?.snapshot, `./${module.id}.schema.md`, `${module.id} readable snapshot naming is owned by the Core registry`);
   if (module.findings?.codes) {
     for (const [code, definition] of Object.entries(module.findings.codes)) {
       assert.equal(definition.messageKey || code, code, `${module.id} finding ${code} should use the finding code as message key unless explicitly justified`);

@@ -8,32 +8,35 @@ const root = process.cwd();
 const allCases = FOUNDATION_TEST_SUITES.all;
 assert.equal(new Set(allCases).size, allCases.length, 'permanent suite cases must be uniquely owned');
 for (const file of allCases) assert(statSync(join(root, file)).isFile(), `suite case missing:${file}`);
+assert.equal(allCases.includes('src/tooling/portable/bootstrap/bootstrap.case.mjs'), false, 'Core-owned portable bootstrap qualification must not remain App suite-owned');
 
 const testEntrypoints = walk(root)
   .map((file) => relative(root, file).replaceAll('\\', '/'))
   .filter((file) => file.endsWith('.test.mjs'))
   .sort();
-assert.deepEqual(testEntrypoints, ['tools/foundation-acceptance.test.mjs'], 'standalone test-file growth is not the default Foundation testing model');
+const foundationEntrypoints = testEntrypoints.filter((file) => file.startsWith('tools/'));
+const packageEntrypoints = testEntrypoints.filter((file) => file.startsWith('test/'));
+assert.deepEqual(foundationEntrypoints, ['tools/foundation-acceptance.test.mjs'], 'Foundation keeps one standalone diagnostic entrypoint');
+assert(packageEntrypoints.length > 0, 'extracted App keeps package-boundary tests under test/');
+assert.equal(testEntrypoints.length, foundationEntrypoints.length + packageEntrypoints.length, 'standalone tests belong only to App package qualification or the Foundation diagnostic entrypoint');
 
 const packageJson = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
-assert.equal(packageJson.scripts?.test, 'node tools/foundation-acceptance.test.mjs', 'generic npm test must remain bounded to permanent Foundation acceptance');
-assert.equal(packageJson.scripts?.['validate:integration'], 'node tools/run-validation-profile.mjs --profile integration', 'integration must remain an explicit escalation command');
-assert.equal(packageJson.scripts?.['validate:closure'], 'node tools/run-validation-profile.mjs --profile closure', 'closure must remain an explicit escalation command');
-assert(String(packageJson.scripts?.validate || '').includes('node tools/foundation-acceptance.test.mjs'), 'strict aggregate validate must use the permanent acceptance entrypoint');
-assert(!String(packageJson.scripts?.validate || '').match(/src\/.+\.test\.mjs/), 'strict aggregate validate must not enumerate historical test files');
+assert.equal(packageJson.name, '@tiinex/app', 'suite contract is scoped to the extracted App package');
+assert.equal(packageJson.scripts?.test, 'node --test test/*.test.mjs', 'generic npm test is the extracted App package-boundary gate');
+assert.equal(packageJson.scripts?.['test:build'], 'vite build --config test/browser/vite.config.mjs', 'App browser build qualification remains explicit');
+assert.equal(packageJson.scripts?.validate, 'npm test && npm run test:build', 'App validate composes package tests and browser build without resurrecting Site validation ownership');
 
 const strategy = readFileSync(join(root, 'docs/architecture/foundation-test-strategy.md'), 'utf8');
-assert(strategy.includes('Cold recipients and ordinary developers start with the narrowest command that matches the work'), 'durable strategy must direct cold recipients to narrow-first validation');
-assert(strategy.includes('`npm test` runs the permanent Foundation component/use-case acceptance entrypoint'), 'durable strategy must describe bounded npm test semantics');
-assert(strategy.includes('`npm run validate:integration` is an explicit repository-integration escalation'), 'durable strategy must keep integration explicit');
-assert(strategy.includes('`npm run validate:closure` is an explicit closure boundary'), 'durable strategy must keep closure explicit');
+assert(strategy.includes('`npm test` runs the package-boundary Node tests in `test/*.test.mjs`'), 'durable strategy must describe extracted App package-test ownership');
+assert(strategy.includes('Core-owned Tooling cases are qualified in Core rather than duplicated under App paths'), 'durable strategy must describe cross-package qualification ownership');
+assert(strategy.includes('`node tools/run-foundation-suite.mjs --suite integration` is an explicit cross-component diagnostic'), 'durable strategy must keep Foundation integration explicit and non-authoritative for package identity');
 
 const summary = foundationSuiteSummary();
 assert.equal(summary.standaloneTestEntrypoints, 1);
 assert.equal(summary.permanentCases, allCases.length);
 assert.equal(Object.values(FOUNDATION_TEST_GROUPS).reduce((count, cases) => count + cases.length, 0), allCases.length);
 
-console.log(`✓ Foundation test-suite contract: 1 permanent entrypoint, ${allCases.length} suite-owned cases, no historical test-file enumeration`);
+console.log(`✓ Foundation test-suite contract: extracted App package tests + 1 Foundation entrypoint; ${allCases.length} App-owned suite cases`);
 
 function walk(dir) {
   const out = [];

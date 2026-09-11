@@ -1,12 +1,14 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { knownScenarioMatrix, KNOWN_SCENARIO_MATRIX_SCHEMA, KnownScenarioStatus, summarizeKnownScenarioMatrix } from './knownScenarios.js';
+import { TIINEX_SITE_CHECKPOINT } from '../build.identity.js';
 
 const packageJson = JSON.parse(readFileSync(new URL('../../package.json', import.meta.url), 'utf8'));
-const packageCheckpoint = String(packageJson.version || '').match(/-(v\d+)$/)?.[1] || '';
+const packageVersion = String(packageJson.version || '');
 
 assert.equal(knownScenarioMatrix.schema, KNOWN_SCENARIO_MATRIX_SCHEMA);
-assert.equal(knownScenarioMatrix.checkpoint, packageCheckpoint, 'known scenario matrix checkpoint follows package version');
+assert.match(packageVersion, /^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/, 'App package identity is normal package semver');
+assert.equal(knownScenarioMatrix.checkpoint, TIINEX_SITE_CHECKPOINT, 'known scenario matrix retains its Viewer checkpoint identity independently of extracted App package semver');
 assert(knownScenarioMatrix.scenarios.length >= 5, 'matrix must cover local/import, source-over-import, lineage, schema navigation, and public/browser gates');
 for (const scenario of knownScenarioMatrix.scenarios) {
   assert(scenario.id, 'scenario requires id');
@@ -41,7 +43,7 @@ assert.equal(publicGate.status, KnownScenarioStatus.blockedInSandbox, 'public/br
 assert(publicGate.failureMode.includes('Do not claim public/browser PASS'));
 
 const summary = summarizeKnownScenarioMatrix();
-assert.equal(summary.checkpoint, packageCheckpoint);
+assert.equal(summary.checkpoint, TIINEX_SITE_CHECKPOINT);
 assert.equal(summary.total, knownScenarioMatrix.scenarios.length);
 assert(summary.manualRequired.includes('browser-public-release-gate'), 'summary exposes remaining public/browser gate');
 
