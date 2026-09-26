@@ -9,28 +9,9 @@ export const FOUNDATION_TEST_GROUPS = Object.freeze({
   "smoke": Object.freeze([
   "src/acceptance/recoveryAcceptance.case.mjs",
   "src/acceptance/postV450M0ProductAcceptanceHardening.case.mjs",
-  "src/tooling/portable/handoff/coldStartQualification.case.mjs",
-  "src/tooling/portable/handoff/handoff.manufacture.case.mjs",
   "tools/validation-profile.contract.case.mjs"
 ]),
   "focused/tooling": Object.freeze([
-  "src/tooling/portable/handoff/materialClosure.case.mjs",
-  "src/tooling/portable/handoff/boundedWorkspaceRepresentation.case.mjs",
-  "src/tooling/portable/handoff/multiRootManufacture.case.mjs",
-  "src/tooling/portable/handoff/workspaceLandingPlan.case.mjs",
-  "src/tooling/portable/handoff/operatorBridgeCore.case.mjs",
-  "src/tooling/portable/grounding/grounding.readiness.case.mjs",
-  "src/tooling/portable/grounding/grounding.capsule.case.mjs",
-  "src/tooling/portable/grounding/grounding.semanticIntegration.case.mjs",
-  "src/tooling/portable/providers/schema.providers.genericity.case.mjs",
-  "src/tooling/portable/adapters/cli/cli.handoff-sibling-allocation.case.mjs",
-  "src/tooling/portable/adapters/cli/cli.run.case.mjs",
-  "src/tooling/portable/adapters/cli/cli.common-output.case.mjs",
-  "src/tooling/portable/input/node.input.case.mjs",
-  "src/tooling/portable/audit/audit.capability.case.mjs",
-  "src/tooling/portable/lineage/lineage.integrity.shared-capability.case.mjs",
-  "src/tooling/portable/reduction/reduction.preflight.case.mjs",
-  "src/tooling/portable/lifecycle/lifecycle.readiness.case.mjs",
   "tools/run-checkpointed-plan.case.mjs"
 ]),
   "workspace/source": Object.freeze([
@@ -79,8 +60,6 @@ export const FOUNDATION_TEST_GROUPS = Object.freeze({
   "src/acceptance/postV447M0FGithubSocialPublicationProductIntegration.case.mjs"
 ]),
   "tooling/detail": Object.freeze([
-  "src/tooling/portable/handoff/carrierLineage.fixedWidth.case.mjs",
-  "src/tooling/portable/adapters/cli/cli.summaryProjection.case.mjs",
   "tools/validate-static-regression-aware.case.mjs",
   "tools/measure-tooling-workset.case.mjs",
   "tools/search-tooling-context.case.mjs",

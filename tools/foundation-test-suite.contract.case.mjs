@@ -8,7 +8,7 @@ const root = process.cwd();
 const allCases = FOUNDATION_TEST_SUITES.all;
 assert.equal(new Set(allCases).size, allCases.length, 'permanent suite cases must be uniquely owned');
 for (const file of allCases) assert(statSync(join(root, file)).isFile(), `suite case missing:${file}`);
-assert.equal(allCases.includes('src/tooling/portable/bootstrap/bootstrap.case.mjs'), false, 'Core-owned portable bootstrap qualification must not remain App suite-owned');
+assert.equal(allCases.some((file) => file.startsWith('src/tooling/portable/')), false, 'Core-owned portable Tooling cases must not remain App suite-owned');
 
 const testEntrypoints = walk(root)
   .map((file) => relative(root, file).replaceAll('\\', '/'))

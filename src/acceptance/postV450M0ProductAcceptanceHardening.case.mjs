@@ -43,7 +43,7 @@ assert.equal(createTopic.icon,'create'); assert.equal(createTask.icon,'create');
 const topic=executeCanonicalTransitionLocalCreate({lifecycle,state,workspaceId:'w',currentRecordId:'',definitionKey:createTopic.definitionKey,values:{Summary:'  Standalone Topic  ','Current Read':'  Current state\n','Design Direction':' Move here  ','Next Artifacts':' One task   '},placementFolder:'.topics/research',schemaCache,bundledDefinitions:definitions,persistenceOwnership:ownership,clock:()=> '2026-08-20T10:00:00.000Z'});
 assert.equal(topic.ok,true,topic.notice);
 assert.equal(topic.record.title,'Standalone Topic');
-assert.match(topic.record.path,/^\.topics\/research\/standalone-topic--topic(?:-\d+)?\.trace\.md$/);
+assert.match(topic.record.path,/^\.topics\/research\/001-standalone-topic\.trace\.md$/);
 assert.equal(topic.placement.mode,'explicit-same-workspace-folder');
 assert.equal(topic.placement.folder,'.topics/research');
 assert.equal(canonicalC14nV2SelfState(topic.record.markdown).state,'verified');

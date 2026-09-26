@@ -44,6 +44,7 @@ assert.equal(sv, 'Topic body is thin; reader may not understand the active topic
 const foundationCriticalReadCases = Object.freeze([
   Object.freeze({
     schemaId: 'tiinex.party.role.v1',
+    artifactCreation: true,
     expectedSections: Object.freeze(['ROLE IDENTITY', 'ROLE BOUNDARY', 'AUTHORITY AND RESPONSIBILITY BOUNDARY', 'HOLDER RELATIONSHIP', 'INTERPRETATION LIMITS']),
     meaningful: 'Role Label: Loom',
     markdown: `# Continuity Context
@@ -206,7 +207,7 @@ const foundationCriticalReadCases = Object.freeze([
 for (const item of foundationCriticalReadCases) {
   const module = schemaRegistry.byId.get(item.schemaId);
   assert(module, `${item.schemaId} must be an exact registered companion`);
-  assert.equal(Boolean(module.artifactCreation), false, `${item.schemaId} companion must remain presentation/read-only`);
+  assert.equal(Boolean(module.artifactCreation), Boolean(item.artifactCreation), `${item.schemaId} companion creation capability must match the current Core registry`);
   const presentation = schemaReadPresentation({ path: `.topics/${item.schemaId}.trace.md`, markdown: item.markdown });
   assert.equal(presentation.schema, item.schemaId);
   assert.equal(presentation.companionId, item.schemaId);
