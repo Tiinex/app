@@ -40,7 +40,7 @@ Reusable Viewer/application behavior only. Deployment-specific Pages/runtime con
 
 - [App extraction task](001-package-extraction-task.trace.md)
 - [Turn-2 repository boundary decision](business::.topics/initiatives/001-3-6-4-1-repository-bootstrap-responsibility-boundary-decision.trace.md)
-- Historical source set: `site::.topics/viewer/001-viewer-poc-parity-recovery-implementation-task.trace.md` and its `001-1` through `001-6` discovery/task decomposition.
+- Historical source set: `site::.topics/work/viewer/001-viewer-poc-parity-recovery-implementation-task.trace.md` and its `001-1` through `001-6` discovery/task decomposition.
 
 ---
 
@@ -52,4 +52,4 @@ Reusable Viewer/application behavior only. Deployment-specific Pages/runtime con
 
 - [sha256-base64url-c14n-v2](https://github.com/Tiinex/docs/blob/3988951208eb9a8926e84ab42625d4b42fa00c2d/.topics/.validators/sha256-base64url-c14n-v2.validator.md)
   - Towards: self
-  - Value: DmsXEQN2UWMy3xAwOGSr5Skz0e0Gh7j-FckmXsWMXqY
+  - Value: euIZYVK5Q_ZloofQL6xuuLCGNMYn01T9jIIwfcX-bVE
