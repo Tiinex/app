@@ -48,8 +48,8 @@ Reusable Viewer/application behavior only. Deployment-specific Pages/runtime con
 
 - [sha256-base64url-c14n-v2](https://github.com/Tiinex/docs/blob/3988951208eb9a8926e84ab42625d4b42fa00c2d/.topics/.validators/sha256-base64url-c14n-v2.validator.md)
   - Towards: [001-extraction-task.trace.md](001-extraction-task.trace.md)
-  - Value: pPdO-ttREQ5kR-pBzHidi2TY2tqZeCVuCS4S0BmkO4o
+  - Value: cwCcDFoL48UqMLxfVeqmoful8WLsTdJ34MRxvWc1-KA
 
 - [sha256-base64url-c14n-v2](https://github.com/Tiinex/docs/blob/3988951208eb9a8926e84ab42625d4b42fa00c2d/.topics/.validators/sha256-base64url-c14n-v2.validator.md)
   - Towards: self
-  - Value: _YkV53lAQMwTlXIGL_S4GQTRRWWgDyNJVMnLChuWt4U
+  - Value: DmsXEQN2UWMy3xAwOGSr5Skz0e0Gh7j-FckmXsWMXqY

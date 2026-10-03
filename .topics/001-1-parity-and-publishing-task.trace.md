@@ -42,8 +42,8 @@ App host lifecycle and Playthings parity. No new semantic authority, no remote m
 
 - [sha256-base64url-c14n-v2](https://github.com/Tiinex/docs/blob/3988951208eb9a8926e84ab42625d4b42fa00c2d/.topics/.validators/sha256-base64url-c14n-v2.validator.md)
   - Towards: [001-extraction-task.trace.md](001-extraction-task.trace.md)
-  - Value: pPdO-ttREQ5kR-pBzHidi2TY2tqZeCVuCS4S0BmkO4o
+  - Value: cwCcDFoL48UqMLxfVeqmoful8WLsTdJ34MRxvWc1-KA
 
 - [sha256-base64url-c14n-v2](https://github.com/Tiinex/docs/blob/3988951208eb9a8926e84ab42625d4b42fa00c2d/.topics/.validators/sha256-base64url-c14n-v2.validator.md)
   - Towards: self
-  - Value: s6eEiBfiApVkWGYyV4KW4zC8BX7YQDo3ovgpU26m9Z0
+  - Value: wF0_rBNEYeQHyWw2d-Z8NLxnjvx48gg4_eU6Bs4QAnc

@@ -9,34 +9,35 @@
     - [relative](../001-turn-2-app-host-and-data-plane-stabilization.trace.md)
 - Current
   - Current Schema: [tiinex.task.v1](https://github.com/Tiinex/docs/blob/053d46ce082d4ec261b82abc44ecca403d61e240/.topics/.schemas/core/task/tiinex.task.v1.schema.md)
-  - Created At: 2026-09-11 16:58:53
+  - Created At: 2026-09-09 14:58:58
   - Authors: Anchor
-  - Why: Correct repository-boundary placement prospectively without rewriting historical continuity.
-  - Summary: App repository-local orchestration frontier
+  - Why: Turn 2 is not stable if package boundaries improve while the ordinary Viewer regresses.
+  - Summary: Carry accepted Viewer value into the new Verse decomposition without preserving obsolete implementation coupling.
   - Status: ready/local
 
 ---
 
-# App repository-local orchestration frontier
+# Native Viewer value carry-forward
 
 ## Objective
 
-Keep App shared data-plane and Verse-host work artifacts inside the App repository lineage while Business remains coordination context.
+Preserve and recover the human-observable Viewer capabilities that matter while concrete Native presentation moves out of App.
 
 ## Done Criteria
 
-- New App specialist work continues from App-local Parent artifacts.
-- Viewer/Verse/product work is not placed in App unless the shared App boundary actually owns it.
-- Cross-repository dependencies remain qualified references rather than implicit ownership transfers.
+- Navigation, lineage legibility, progressive detail and visible uncertainty/degradation remain explicit acceptance targets.
+- PoC-proven product value is distinguished from obsolete PoC implementation architecture.
+- Native presentation extraction has a bounded handoff to the future `verse-native` Workspace once its current source is supplied.
+- Viewer work is qualified in a real browser path before human acceptance is requested.
 
 ## Scope
 
-Repository-boundary placement for future App work only.
+Carry-forward and extraction boundary only; do not freeze final Native Verse internals inside App.
 
 ## Dependencies
 
-- Current App Turn-2 host and data-plane stabilization frontier.
-- Business repository-boundary placement correction as coordination context.
+- Parent App Turn-2 task.
+- Existing Viewer parity carry-forward `.topics/002-viewer-parity-carry-forward-task.trace.md`.
 
 ---
 
@@ -44,8 +45,8 @@ Repository-boundary placement for future App work only.
 
 - [sha256-base64url-c14n-v2](https://github.com/Tiinex/docs/blob/3988951208eb9a8926e84ab42625d4b42fa00c2d/.topics/.validators/sha256-base64url-c14n-v2.validator.md)
   - Towards: [001-turn-2-app-host-and-data-plane-stabilization.trace.md](../001-turn-2-app-host-and-data-plane-stabilization.trace.md)
-  - Value: EGOaFvAOpP9ZTIWoS9KTTpvSORJOAhmHnx80oHrLuxQ
+  - Value: YbsQB9fXAh0VWTu_3QxTTf9ixHxxr4uOn64nti2yL24
 
 - [sha256-base64url-c14n-v2](https://github.com/Tiinex/docs/blob/3988951208eb9a8926e84ab42625d4b42fa00c2d/.topics/.validators/sha256-base64url-c14n-v2.validator.md)
   - Towards: self
-  - Value: uGBcyWSeYa6ppXmj6v9ZJh6J6qsOLC_DyTEfZDibi78
+  - Value: 3DlskIt_uQRnbSSbikG-eefkY0Ro4LarIlJ7lWCv0XM

@@ -9,35 +9,34 @@
     - [relative](../001-turn-2-app-host-and-data-plane-stabilization.trace.md)
 - Current
   - Current Schema: [tiinex.task.v1](https://github.com/Tiinex/docs/blob/053d46ce082d4ec261b82abc44ecca403d61e240/.topics/.schemas/core/task/tiinex.task.v1.schema.md)
-  - Created At: 2026-09-09 14:58:58
+  - Created At: 2026-09-09 14:58:57
   - Authors: Anchor
-  - Why: Turn 2 is not stable if package boundaries improve while the ordinary Viewer regresses.
-  - Summary: Carry accepted Viewer value into the new Verse decomposition without preserving obsolete implementation coupling.
+  - Why: Provider-neutral App is required for scalable independent provider repositories.
+  - Summary: Extract provider-specific application behavior behind generic provider capabilities.
   - Status: ready/local
 
 ---
 
-# Native Viewer value carry-forward
+# Provider-neutral App integration surface
 
 ## Objective
 
-Preserve and recover the human-observable Viewer capabilities that matter while concrete Native presentation moves out of App.
+Remove GitHub/native provider-specific application policy from App and expose only generic provider registration, capability consumption and UI integration contracts.
 
 ## Done Criteria
 
-- Navigation, lineage legibility, progressive detail and visible uncertainty/degradation remain explicit acceptance targets.
-- PoC-proven product value is distinguished from obsolete PoC implementation architecture.
-- Native presentation extraction has a bounded handoff to the future `verse-native` Workspace once its current source is supplied.
-- Viewer work is qualified in a real browser path before human acceptance is requested.
+- App contains no GitHub-host assumptions in generic source/materialization paths.
+- Provider-specific browse/git/native behavior is supplied through registered provider implementations.
+- App remains debuggable with zero external providers installed.
+- Provider changes can be tested through small capability/use-case boundaries rather than provider-name switches.
 
 ## Scope
 
-Carry-forward and extraction boundary only; do not freeze final Native Verse internals inside App.
+App provider integration surface only. Concrete providers belong in provider repositories.
 
 ## Dependencies
 
 - Parent App Turn-2 task.
-- Existing Viewer parity carry-forward `.topics/002-viewer-parity-carry-forward-task.trace.md`.
 
 ---
 
@@ -45,8 +44,8 @@ Carry-forward and extraction boundary only; do not freeze final Native Verse int
 
 - [sha256-base64url-c14n-v2](https://github.com/Tiinex/docs/blob/3988951208eb9a8926e84ab42625d4b42fa00c2d/.topics/.validators/sha256-base64url-c14n-v2.validator.md)
   - Towards: [001-turn-2-app-host-and-data-plane-stabilization.trace.md](../001-turn-2-app-host-and-data-plane-stabilization.trace.md)
-  - Value: EGOaFvAOpP9ZTIWoS9KTTpvSORJOAhmHnx80oHrLuxQ
+  - Value: YbsQB9fXAh0VWTu_3QxTTf9ixHxxr4uOn64nti2yL24
 
 - [sha256-base64url-c14n-v2](https://github.com/Tiinex/docs/blob/3988951208eb9a8926e84ab42625d4b42fa00c2d/.topics/.validators/sha256-base64url-c14n-v2.validator.md)
   - Towards: self
-  - Value: V4lqtEvqlDIrat2khGrV_GI62IItGa_vmgYJtEoLht4
+  - Value: ZQEUCFvlLQRhPpQDw3R73M096OLYkskTtoa6hVDVte4
